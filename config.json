@@ -1,0 +1,20 @@
+{
+    "BASE_FOLDER": "",
+    "INPUT_FOLDER": "input",
+    "OUTPUT_FOLDER": "output",
+    "BACKUP_FOLDER": "input/backup",
+    "DEF_FOLDER": "defs",
+    "RequestSheet": {
+        "SHEET_TYPE": "SHEETFORM",
+        "INPUT_LIKE": "Request*.xlsx",
+        "DEF_WORKBOOK_NAME": "RequestSheet.xlsx",
+        "DEF_SHEET_NAME": "Sheet",
+        "DEF_NAME_PARAM": "layout",
+        "DEF_FILE": "RequestSheet.xlsx.json",
+        "MACRO_GET_METHOD": "GetValue",
+        "MACRO_DUMP_METHOD": "DumpSimpleJson"
+    },
+    "CONTROL_PREFIX": "__",
+    "SOURCE_FROM": "_source",
+    "APP_NAME" : "appFormToJson"
+}

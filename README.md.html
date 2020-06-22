@@ -1,0 +1,235 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="mded-output-date" content="2020/06/22 06:37:37">
+<title>README.md</title>
+<META http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+body {
+color: #000000;
+background-color: #FFFFFF;
+font-family: ＭＳ ゴシック;
+font-size: 11pt;
+}
+h1 {
+background-color: #80FFFF;
+font-size: 200%;
+border-left: 3pt #8080FF solid;
+}
+h2 {
+background-color: #C6FFFF;
+font-size: 120%;
+border-left: 2pt #8080FF solid;
+}
+h3 {
+font-size: 100%;
+border-bottom: 1pt #0000A0 solid;
+}
+h4 {
+font-size: 100%;
+}
+h5 {
+font-size: 100%;
+}
+h6 {
+font-size: 100%;
+}
+blockquote p,blockquote ol,blockquote ul,blockquote li {
+background-color: #FFFF80;
+}
+blockquote {
+background-color: #FFFF80;
+}
+pre {
+background-color: #EFEFEF;
+font-family: Consolas;
+}
+dt {
+color: #FFFFFF;
+background-color: #000080;
+}
+dd {
+background-color: #FAFAFA;
+}
+th {
+padding:0.3em;
+border: 1px #000000 solid;
+}
+td {
+padding:0.3em;
+border: 1px #000000 solid;
+}
+table.markdown {
+background-color: #F0FBFB;
+border: 1px #000000 solid;
+table-layout: auto;
+border-collapse: collapse;
+border-spacing: 0;
+empty-cells: show;
+}
+a {
+color: #FFFFFF;
+background-color: #800000;
+}
+code {
+background-color: #80FF80;
+}
+--></style>
+</head>
+<body>
+<div class="markdown-content"><a name="toc-top"></a>
+<a name="toc-1"></a><h1>[Excel VBA] appFormToJson : Excel定型帳票から入力情報をJSON形式で抽出するツール</h1>
+
+<a name="toc-1-1"></a><h2>overveiw :</h2>
+
+<ul><li>Excelで作成した定型フォーマットの申請書、等から、入力情報を抽出する補助ツール(VBA Excel)。
+<li>定型フォーマットから取得する値を、レイアウト(XXX.xlsx)で定義し、その定義をもとに、抽出定義json(XXX.xlsx.json)を生成する。抽出定義jsonをもとに、入力情報を抽出する。
+<ul><li>抽出定義jsonは、マクロにより生成可能。
+</ul></ul>
+<a name="toc-1-1-1"></a><h3>機能 :</h3>
+<ul><li><p>Excelに入力された定型フォーマットを、指定フォルダ（INPUT_FOLDER)に配置する。
+<ul><li>レイアウトより、抽出定義(XXX.xlsx.json)を生成し、<code>DEF_FOLDER</code>に配置する。<br>
+
+</ul></p><li><p>メニューより、以下の機能を利用する。
+<ul><li><strong>Output JSON data from a Sheet</strong>抽出定義をもとに定型フォームからJSON出力する。（サンプル）
+<li><strong>Dump a def json</strong>レイアウトより、抽出定義(XXX.xlsx.json)を出力する。
+</ul></p></ul>
+<a name="toc-1-2"></a><h2>Installation :</h2>
+
+<ul><li><p>GitHubより、Cloneする。
+<ul><li>https://github.com/sakai-memoru/appFormToJson<br>
+
+</ul></p><li><p>参照設定が必要。
+</p></ul>
+<p><img src="https://gyazo.com/7d30f2387e7818067fd7596a82e507e9.png" alt="referto">
+</p><br>
+
+<a name="toc-1-3"></a><h2>Usage :</h2>
+<ul><li>アプリは以下。
+<ul><li>アプリ本体 &nbsp;：appFormToJson.xlsm
+<ul><li>Batch &nbsp;&nbsp;: FormToJsonMain.bas
+<ul><li>FormToJsonModule.bas
+<ul><li>GetValue
+<li>DumpSimpleJson - GetDef
+</ul></ul></ul></ul><li>アプリconfig：config.json
+<li><p>抽出定義form：
+<ul><li>defs/RequestSheet.xlsm 申請フォーマット（サンプル）<br>
+
+</ul></p><li><p>appSpecDef.xlsmを開く。Menuより起動する。
+</p></ul>
+<p><img src="https://gyazo.com/e79bbe22eb2f614940404b5bd1b62a7b.png" alt="menu">
+</p><br>
+<br>
+
+<a name="toc-1-3-2"></a><h3>初期コンフィグ設定 :</h3>
+
+<pre>{
+    "BASE_FOLDER": "",
+    "INPUT_FOLDER": "input",
+    "OUTPUT_FOLDER": "output",
+    "BACKUP_FOLDER": "input/backup",
+    "DEF_FOLDER": "defs",
+    "RequestSheet": {
+        "SHEET_TYPE": "SHEETFORM",
+        "INPUT_LIKE": "Request*.xlsx",
+        "DEF_WORKBOOK_NAME": "RequestSheet.xlsx",
+        "DEF_SHEET_NAME": "Sheet",
+        "DEF_NAME_PARAM": "layout",
+        "DEF_FILE": "RequestSheet.xlsx.json",
+        "MACRO_GET_METHOD": "GetValue",
+        "MACRO_DUMP_METHOD": "DumpSimpleJson"
+    },
+    "CONTROL_PREFIX": "__",
+    "SOURCE_FROM": "_source",
+    "APP_NAME" : "appFormToJson"
+}
+</pre>
+
+<a name="toc-1-3-3"></a><h3>Environment</h3>
+
+<p><img src="https://gyazo.com/b0c2ce3be04ba8f4e8b29044ed2e425a.png" alt="env">
+</p><br>
+
+<a name="toc-1-4"></a><h2>Execution sample</h2>
+
+<ul><li><p>レイアウト定義 : forms/_mapTableDesign.xlsm<br>
+<img src="https://gyazo.com/4a411aa38a51b24fdf1a6484938805ae.png" alt="map"><br>
+
+</p><li><p>出力例
+</p></ul><pre>{
+    "applicantNameKana": "ニホンバシ　ジロウ",
+    "applicantSignImage": "",
+    "applicantName": "日本橋　二郎",
+    "applicantBirthDate": "1985年10月01日",
+    "applicantAddress": "東京都中央区日本橋１－１－２０２０",
+    "applicationDate": "2020年6月17日",
+    "applicantTel": "080-9876-5432",
+    "reciever1": "日本橋二郎",
+    "revalent1": "本人",
+    "recieverBirthDate1": "1985年10月01日",
+    "recieverFlag1": "要",
+    "reciever2": "日本橋花子",
+    "revalent2": "長女",
+    "recieverBirthDate2": "2005年01月10日",
+      :
+      :
+      :
+      :
+    "recieverFlag6": "",
+    "accountNameKana": "ニホンバシジロウ",
+    "bankName": "住菱銀行",
+    "branchName": "日本橋支店",
+    "accountClass": "普通",
+    "bankCode": "9999",
+    "branchCode": "1010",
+    "accountId": "12345678",
+    "accountPBNameKana": "",
+    "accountPBCode": "",
+    "accountPBId": "",
+    "_source": "'RequestSheet_200616.xlsx'!Sheet",
+    "_source_date": "2020-06-16T07:45:25.000Z",
+    "_created": "2020-06-21T12:14:56.000Z",
+    "_id": "D084C1E6-8850-7E55-9A72-8C9ABF49A5D2"
+}
+</pre>
+
+<a name="toc-1-5"></a><h2>application I/F</h2>
+
+<pre>'''' **********************************************
+'' @file FormToJsonMain.bas
+'' @parent appFormToJson.xlsm
+''
+
+Public Function Batch( _
+        ByVal datatype As String, _
+        Optional ByVal dumpOn As Variant = False, _
+        Optional ByVal moveOn As Variant = False _
+    ) As Variant
+'''' **********************************************
+'''' @function batch
+'''' @param datatype {String} 処理データタイプ
+''''        config.jsonのキー "RequestSheet"
+'''' @param dumpOn  {Variant&lt;boolean&gt;}
+''''            dump def.json
+'''' @param moveOn  {Variant&lt;boolean&gt;}
+''''            Inputファイル移動flag
+''
+</pre>
+
+<a name="toc-1-6"></a><h2>note :</h2>
+<ul><li>落ち着いたら、もう少し記述を追加します。
+</ul>
+<a name="toc-1-7"></a><h2>reference :</h2>
+
+<ul><li>以下の外部ライブラリを使用しています。
+<li>VBA-JSON : JsonConverter.bas
+<ul><li>https://github.com/VBA-tools/VBA-JSON
+</ul><li>MiniTemplator
+<ul><li>https://www.source-code.biz/MiniTemplator/
+</ul></ul>
+<p>// --- end of README.md
+</p>
+<hr>Output by WZ Markdown Editor (Trial)<br></div>
+</body>
+</html>
